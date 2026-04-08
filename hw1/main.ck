@@ -50,7 +50,6 @@ GameTrak gt;
 // record mic into LiSa
 LiSa6 micBuf;
 NRev rev[2];
-adc => micBuf;
 
 // --- LiSa rolling recorder ---
 MIC_BUFFER_LEN => micBuf.duration;
@@ -67,7 +66,7 @@ for (int v; v < micBuf.maxVoices(); v++) {
 0.1 => rev[0].mix;
 0.1 => rev[1].mix;
 
-micIn => micBuf => rev => dac;
+adc => micBuf => rev => dac;
 // start recording!!
 // 1 => micBuf.record;
 
