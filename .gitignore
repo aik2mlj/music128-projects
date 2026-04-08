@@ -9,3 +9,4 @@ lib/**
 imgui.ini
 *.zip
 *.tar.gz
+tmp/
