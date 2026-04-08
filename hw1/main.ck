@@ -45,6 +45,7 @@ GameTrak gt;
 
 5::second => dur EXTRACT_DELAY;
 6::second => dur MIC_BUFFER_LEN;
+0.5::second => dur EXTRACT_TIME;
 16 => int NUM_VOICES;
 
 // record mic into LiSa
@@ -81,16 +82,17 @@ while (true) {
     // also can map gametrak input to audio parameters around here
     // note: gt.lastAxis[0]...gt.lastAxis[5] hold the previous XYZ values
     // synthesizeMic();
-    synthesizeMic(gt.axis[2] * MIC_BUFFER_LEN, gt.axis[5] * 2, Math.random2f(-2.0, 2.0));
+    synthesizeMic(gt.axis[2] * MIC_BUFFER_LEN / 1::samp, gt.axis[5] * 2.0,
+                  Math.random2f(-2.0, 2.0));
 
     // advance time
     100::ms => now;
 }
 
-fun void synthesizeMic() {
-    synthesizeMic(Math.random2f(0, MIC_BUFFER_LEN - 1), Math.random2f(0.5, 1.0),
-                  Math.random2f(-2.0, 2.0));
-}
+// fun void synthesizeMic() {
+//     synthesizeMic(Math.random2f(0, MIC_BUFFER_LEN - 1), Math.random2f(0.5, 1.0),
+//                   Math.random2f(-2.0, 2.0));
+// }
 
 fun void synthesizeMic(float startPos, float gain, float rate) {
     // allocate a LiSa voice
